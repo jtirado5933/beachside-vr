@@ -4,6 +4,7 @@ import { CleaningMetrics } from "@/components/cleaning-metrics"
 import { DashboardHeader } from "@/components/dashboard-header"
 import { DashboardShell } from "@/components/dashboard-shell"
 import { PropertyDetails } from "@/components/property-details"
+import { ReputationMetrics } from "@/components/reputation-metrics"
 import { SchedulingMetrics } from "@/components/scheduling-metrics"
 import { SeasonalAnalysis } from "@/components/seasonal-analysis"
 import { SummaryCards } from "@/components/summary-cards"
@@ -25,6 +26,7 @@ export default function DashboardPage() {
       <div className="grid gap-6">
         <SummaryCards />
         <PropertyDetails />
+        <ReputationMetrics />
         <BookingMetrics />
         <CleaningMetrics />
         <SchedulingMetrics />

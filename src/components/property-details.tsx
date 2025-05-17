@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Bar, BarChart, CartesianGrid, Legend, Pie, PieChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, XAxis, YAxis } from "recharts"
 
 const propertyList = [
   {
@@ -102,6 +102,14 @@ const bedroomDistributionData = [
   { bedrooms: "5 BR", count: 1 },
 ]
 
+const BLUE_SHADES = [
+  "hsl(221 83% 53%)",  // Base blue
+  "hsl(221 83% 65%)",  // Lighter blue
+  "hsl(221 83% 45%)",  // Darker blue
+  "hsl(221 83% 75%)",  // Very light blue
+  "hsl(221 83% 35%)",  // Very dark blue
+]
+
 export function PropertyDetails() {
   return (
     <Card>
@@ -168,7 +176,7 @@ export function PropertyDetails() {
                 <ChartContainer
                   config={{
                     value: {
-                      label: "Count",
+                      label: "Property Types",
                       color: "hsl(var(--chart-1))",
                     },
                   }}
@@ -179,11 +187,18 @@ export function PropertyDetails() {
                       cx="50%"
                       cy="50%"
                       outerRadius={80}
-                      fill="var(--color-value)"
+                      fill="hsl(var(--chart-1))"
                       dataKey="value"
                       nameKey="name"
                       label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                    />
+                    >
+                      {propertyTypeData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={BLUE_SHADES[index % BLUE_SHADES.length]}
+                        />
+                      ))}
+                    </Pie>
                     <ChartTooltip content={<ChartTooltipContent />} />
                   </PieChart>
                 </ChartContainer>
@@ -194,7 +209,7 @@ export function PropertyDetails() {
                   config={{
                     count: {
                       label: "Number of Properties",
-                      color: "hsl(var(--chart-2))",
+                      color: "hsl(var(--chart-1))",
                     },
                   }}
                 >
@@ -208,7 +223,7 @@ export function PropertyDetails() {
                     <YAxis />
                     <ChartTooltip content={<ChartTooltipContent />} />
                     <Legend />
-                    <Bar dataKey="count" fill="var(--color-count)" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="count" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ChartContainer>
               </div>
